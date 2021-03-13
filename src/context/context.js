@@ -15,10 +15,11 @@ const GithubProvider = ({ children }) => {
 
   return <GithubContext.Provider 
             value={{
-              githubUser,repos,followers
+              githubUser,
+              repos,
+              followers
             }}
-          >
-              {children}
+          >{children}
   </GithubContext.Provider>;
 };
 
