@@ -1,13 +1,65 @@
-import React from 'react';
-import { GithubContext } from '../context/context';
-import styled from 'styled-components';
-import { GoRepo, GoGist } from 'react-icons/go';
-import { FiUsers, FiUserPlus } from 'react-icons/fi';
+import React from "react";
+import { GithubContext } from "../context/context";
+import styled from "styled-components";
+import { GoRepo, GoGist } from "react-icons/go";
+import { FiUsers, FiUserPlus } from "react-icons/fi";
 
 const UserInfo = () => {
-  const data = React.useContext(GithubContext)
-  console.log("data", data);
-  return <h2>user info component</h2>;
+  const { githubUser } = React.useContext(GithubContext);
+  const { public_repos, public_gists, followers, following } = githubUser;
+
+  // console.log({ public_repos, public_gists, followers, following });
+  const itmes = [
+    {
+      id: 1,
+      icon: <GoRepo className="icon" />,
+      label: "repos",
+      value: public_repos,
+      color: "pink",
+    },
+    {
+      id: 2,
+      icon: <FiUsers className="icon" />,
+      label: "followers",
+      value: followers,
+      color: "green",
+    },
+    {
+      id: 3,
+      icon: <FiUserPlus className="icon" />,
+      label: "following",
+      value: following,
+      color: "purple",
+    },
+    {
+      id: 4,
+      icon: <GoGist className="icon" />,
+      label: "gits",
+      values: public_gists,
+      color: "yellow",
+    },
+  ];
+  return (
+    <section className="section">
+      <Wrapper className="section-center">
+        {itmes.map((item) => {
+          return <Item key={item.id} {...item} />;
+        })}
+      </Wrapper>
+    </section>
+  );
+};
+
+const Item = ({ icon, label, value, color }) => {
+  return (
+    <article className="item">
+      <span className={color}>{icon}</span>
+      <div>
+        <h3>{value || 0}</h3>
+        <p>{label}</p>
+      </div>
+    </article>
+  );
 };
 
 const Wrapper = styled.section`
